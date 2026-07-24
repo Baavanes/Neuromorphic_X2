@@ -14,7 +14,7 @@ Neuromorphic X1 is a **compact, ultra-efficient analog in-memory compute (AiMC) 
 
 ---
 
-## 🔹 Key Features
+## 🔹 Key Features.
 - **Analog in-memory MAC engine** in a 32 × 32 1T1R array  
 - Drop-in, licenseable macro for energy-efficient computation at the edge  
 - Designed for embedded / IoT AI where **energy** and **latency** are critical
