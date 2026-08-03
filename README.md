@@ -43,7 +43,7 @@ Wishbone Read
 Compute-mode commands are written to the **input FIFO**. The crossbar operation is then executed, and the resulting MAC data is returned through the **output FIFO**.
 
 ---
-(C:/Users/BaavaneshS/Downloads/reram_cim_process.jpg)
+(doc/Process_to_write_to_ReRAM_CIM.png)
 ---
 
 ## Behavioral Model
