@@ -19,8 +19,8 @@ info:
     - WB
   type: hard
   status: verified
-  width: 760.000   # macro width in μm
-  height: 948.000 # macro height in μm
+  width: 3874.000   # macro width in μm
+  height: 3805.000 # macro height in μm
   technology: sky130
   digital_supply_voltage: 1.8
   analog_supply_voltage: 1.8
