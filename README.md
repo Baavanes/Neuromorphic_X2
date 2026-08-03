@@ -45,7 +45,7 @@ Compute-mode commands are written to the **input FIFO**. The crossbar operation 
 ---
 
 <p align="center">
-  <img src="docs/reram_cim_process.jpg" alt="ReRAM CIM Process Flow" width="800"/>
+  <img src="doc/reram_cim_process.jpg" alt="ReRAM CIM Process Flow" width="800"/>
 </p>
 
 ---
