@@ -26,16 +26,50 @@ module Neuromorphic_X2_wb_beh #(
   parameter integer COMPUTE_DELAY    = 180,
   parameter integer CONFIG_WRITES    = 3
 )(
+`ifdef USE_POWER_PINS
+  inout         VDDC1,
+  inout         VDDC2,
+  inout         VDDA1,
+  inout         VDDA2,
+  inout         VSS,
+`endif
+
+  // Clocks and resets
+  input         user_clk,
+  input         user_rst,
   input         wb_clk_i,
   input         wb_rst_i,
+
+  // Wishbone inputs
   input         wbs_stb_i,
   input         wbs_cyc_i,
   input         wbs_we_i,
   input  [3:0]  wbs_sel_i,
   input  [31:0] wbs_dat_i,
   input  [31:0] wbs_adr_i,
+
+  // Wishbone outputs
   output reg [31:0] wbs_dat_o,
-  output reg        wbs_ack_o
+  output reg        wbs_ack_o,
+
+  // Scan/test pins
+  input         ScanInCC,
+  input         ScanInDL,
+  input         ScanInDR,
+  input         TM,
+  output        ScanOutCC,
+
+  // Analog pins
+  input         Iref,
+  input         Vcc_read,
+  input         Vcomp,
+  input         Bias_comp2,
+  input         Vcc_wl_read,
+  input         Vcc_wl_set,
+  input         Vbias,
+  input         Vcc_wl_reset,
+  input         Vcc_set,
+  input         dc_bias
 );
 
   localparam [1:0] MODE_RESET   = 2'b00;
@@ -88,6 +122,9 @@ module Neuromorphic_X2_wb_beh #(
   wire command_full;
   wire response_empty;
   wire response_full;
+
+  // Interface-compatible placeholder for the unmodeled scan chain.
+  assign ScanOutCC = 1'b0;
 
   assign selected = wbs_stb_i && wbs_cyc_i &&
                     (wbs_sel_i == 4'hF) &&
@@ -537,16 +574,50 @@ module Neuromorphic_X2_wb #(
   parameter integer COMPUTE_DELAY    = 180,
   parameter integer CONFIG_WRITES    = 3
 )(
+`ifdef USE_POWER_PINS
+  inout         VDDC1,
+  inout         VDDC2,
+  inout         VDDA1,
+  inout         VDDA2,
+  inout         VSS,
+`endif
+
+  // Clocks and resets
+  input         user_clk,
+  input         user_rst,
   input         wb_clk_i,
   input         wb_rst_i,
+
+  // Wishbone inputs
   input         wbs_stb_i,
   input         wbs_cyc_i,
   input         wbs_we_i,
   input  [3:0]  wbs_sel_i,
   input  [31:0] wbs_dat_i,
   input  [31:0] wbs_adr_i,
+
+  // Wishbone outputs
   output [31:0] wbs_dat_o,
-  output        wbs_ack_o
+  output        wbs_ack_o,
+
+  // Scan/test pins
+  input         ScanInCC,
+  input         ScanInDL,
+  input         ScanInDR,
+  input         TM,
+  output        ScanOutCC,
+
+  // Analog pins
+  input         Iref,
+  input         Vcc_read,
+  input         Vcomp,
+  input         Bias_comp2,
+  input         Vcc_wl_read,
+  input         Vcc_wl_set,
+  input         Vbias,
+  input         Vcc_wl_reset,
+  input         Vcc_set,
+  input         dc_bias
 );
 
   Neuromorphic_X2_wb_beh #(
@@ -556,6 +627,15 @@ module Neuromorphic_X2_wb #(
     .COMPUTE_DELAY(COMPUTE_DELAY),
     .CONFIG_WRITES(CONFIG_WRITES)
   ) wb_black_box_i (
+`ifdef USE_POWER_PINS
+    .VDDC1(VDDC1),
+    .VDDC2(VDDC2),
+    .VDDA1(VDDA1),
+    .VDDA2(VDDA2),
+    .VSS(VSS),
+`endif
+    .user_clk(user_clk),
+    .user_rst(user_rst),
     .wb_clk_i(wb_clk_i),
     .wb_rst_i(wb_rst_i),
     .wbs_stb_i(wbs_stb_i),
@@ -565,7 +645,22 @@ module Neuromorphic_X2_wb #(
     .wbs_dat_i(wbs_dat_i),
     .wbs_adr_i(wbs_adr_i),
     .wbs_dat_o(wbs_dat_o),
-    .wbs_ack_o(wbs_ack_o)
+    .wbs_ack_o(wbs_ack_o),
+    .ScanInCC(ScanInCC),
+    .ScanInDL(ScanInDL),
+    .ScanInDR(ScanInDR),
+    .TM(TM),
+    .ScanOutCC(ScanOutCC),
+    .Iref(Iref),
+    .Vcc_read(Vcc_read),
+    .Vcomp(Vcomp),
+    .Bias_comp2(Bias_comp2),
+    .Vcc_wl_read(Vcc_wl_read),
+    .Vcc_wl_set(Vcc_wl_set),
+    .Vbias(Vbias),
+    .Vcc_wl_reset(Vcc_wl_reset),
+    .Vcc_set(Vcc_set),
+    .dc_bias(dc_bias)
   );
 
 endmodule
